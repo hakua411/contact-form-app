@@ -14,5 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('contact.index');
+});
+
+Route::post('/contacts/confirm', function () {
+    return view('contact._form');
+});
+
+Route::get('/tanks', function () {
+    return view('contact.thanks');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', fn () => '問合せ一覧')->name('admin.index');
+    Route::get('/admin/contacts/{contact}', fn () => '問合せ詳細')->name('admin.show');
+    Route::get('/admin/tags/{tag}/edit', fn () => 'タグ編集')->name('admin.tags.edit');
 });
