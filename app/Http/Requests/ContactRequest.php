@@ -24,7 +24,7 @@ class ContactRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             'detail' => 'required|string|max:120',
             'tag_ids' => 'nullable|array',
-            'tag_ids.*' => 'integer|exists:tag,id',
+            'tag_ids.*' => 'integer|exists:tags,id',
         ];
     }
 

@@ -22,7 +22,9 @@ class ContactController extends Controller
     {
         $validated = $request->validated();
 
-        return view('contact.confirm', compact('validated'));
+        $category = Category::find($validated['category_id']);
+
+        return view('contact.confirm', compact('validated', 'category'));
     }
 
     public function store(Request $request)
@@ -49,14 +51,18 @@ class ContactController extends Controller
 
     public function complete()
     {
-        return view('contact.complete');
+        return view('contact.thanks');
     }
 
     public function index()
     {
-        $contacts = Contact::with(['category', 'tags'])->get();
+        $contacts = Contact::with(['category', 'tags'])->paginate(7);
 
-        return view('admin.index', compact('contacts'));
+        $categories = Category::all();
+
+        $tags = Tag::all();
+
+        return view('admin.index', compact('contacts', 'categories', 'tags'));
     }
 
     public function show(Contact $contact)
