@@ -207,3 +207,17 @@ sail artisan key:generate
 ```bash
 artisan migrasail te --seed
 ```
+
+## 使用技術
+- PHP : 8.2
+- Laravel : 10.x
+- DB : MySQL 8.0
+- Webサーバー : Nginx
+- フロントエンド : Vite, Tailwind CSS ^3.4.0
+- 開発ツール : Docker, Laravel Sail, phpMyAdmin
+
+## 開発環境URL
+http://localhost 
+
+## 作成者
+伊藤亜弓
