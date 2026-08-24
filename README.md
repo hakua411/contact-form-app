@@ -159,9 +159,51 @@ open .
 ③ クローンしたリポジトリ内の resources フォルダをプロジェクト直下にコピーします。
 
 ※コマンド操作に慣れている場合は rm -rf と cp -r でも可能ですが、誤削除を防ぐためFinderでの操作を推奨します。
-
 6. Vite開発サーバーの起動
 ```bash
 sail npm run dev
 ```
 注意: sail npm run dev は実行したままにしておく必要があります。
+### 6. phpMyAdminの追加
+compose.yaml を開き、mysql サービスの後に以下の設定を追加してください。
+
+compose.yaml に追加する内容:
+```bash
+    phpmyadmin:
+        image: 'phpmyadmin:latest'
+        ports:
+            - '${FORWARD_PHPMYADMIN_PORT:-8080}:80'
+        environment:
+            PMA_HOST: mysql
+            PMA_USER: '${DB_USERNAME}'
+            PMA_PASSWORD: '${DB_PASSWORD}'
+        networks:
+            - sail
+        depends_on:
+            - mysql
+```
+### 7.Sailの起動とエイリアス設定
+Sailをバックグラウンドで起動
+```bash
+./vendor/bin/sail up -d
+```
+エイリアスを設定して 'sail' だけでコマンドを実行できるようにする
+```bash
+echo "alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'" >> ~/.zshrc
+```
+または bash の場合
+```bash
+echo "alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'" >> ~/.bashrc
+```
+シェルを再起動するか、新しいターミナルを開いてエイリアスを有効にする
+```bash
+exec $SHELL
+```
+### 8.アプリケーションキーの生成
+```bash
+sail artisan key:generate
+```
+### 9.データベースのマイグレーションと初期データ投入
+```bash
+artisan migrasail te --seed
+```
