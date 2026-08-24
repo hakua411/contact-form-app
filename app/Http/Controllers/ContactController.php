@@ -54,12 +54,18 @@ class ContactController extends Controller
         return view('contact.thanks');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::with(['category', 'tags'])->paginate(7);
+        $query = Contact::with(['category', 'tags']);
+
+        $query->keywordSearch($request->keyword);
+        $query->genderSearch($request->gender);
+        $query->categorySearch($request->category_id);
+        $query->dateSearch($request->date);
+
+        $contacts = $query->paginate(7)->withQueryString();
 
         $categories = Category::all();
-
         $tags = Tag::all();
 
         return view('admin.index', compact('contacts', 'categories', 'tags'));

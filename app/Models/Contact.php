@@ -32,4 +32,44 @@ class Contact extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (! empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('first_name', 'like', '%'.$keyword.'%')
+                    ->orWhere('last_name', 'like', '%'.$keyword.'%')
+                    ->orwhere('email', 'like', '%'.$keyword.'%');
+            });
+        }
+
+        return $query;
+    }
+
+    public function scopeGenderSearch($query, $gender)
+    {
+        if (! empty($gender)) {
+            $query->where('gender', $gender);
+        }
+
+        return $query;
+    }
+
+    public function scopeCategorySearch($query, $category_id)
+    {
+        if (! empty($category_id)) {
+            $query->where('category_id', $category_id);
+        }
+
+        return $query;
+    }
+
+    public function scopeDateSearch($query, $date)
+    {
+        if (! empty($date)) {
+            $query->whereDate('created_at', $date);
+        }
+
+        return $query;
+    }
 }
