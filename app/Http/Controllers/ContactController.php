@@ -27,7 +27,7 @@ class ContactController extends Controller
         return view('contact.confirm', compact('validated', 'category'));
     }
 
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
         $contact = Contact::create(
             $request->only([
