@@ -14,6 +14,7 @@ Route::get('/thanks', [ContactController::class, 'complete'])->name('contacts.co
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'index'])->name('admin.index');
+    Route::get('/contacts/export', [ContactController::class, 'export'])->name('contacts.export');
     Route::get('/admin/contacts/{contact}', [ContactController::class, 'show'])->name('admin.show');
     Route::delete('/admin/contacts/{contact}', [ContactController::class, 'destroy'])->name('admin.destroy');
 
