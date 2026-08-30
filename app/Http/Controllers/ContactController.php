@@ -81,8 +81,8 @@ class ContactController extends Controller
         $query->dateSearch($request->date);
 
         $contacts = $query
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $csv = fopen('php://temp', 'r+');
 
@@ -104,7 +104,7 @@ class ContactController extends Controller
         foreach ($contacts as $contact) {
             fputcsv($csv, [
                 $contact->id,
-                $contact->fist_name . ' ' . $contact->last_name,
+                $contact->fist_name.' '.$contact->last_name,
                 $contact->gender == 1 ? '男性' : ($contact->gender == 2 ? '女性' : 'その他'),
                 $contact->email,
                 $contact->tel,
@@ -121,8 +121,8 @@ class ContactController extends Controller
         fclose($csv);
 
         return response($csvData)
-        ->header('Content-Type', 'text/csv; charset=UTF-8')
-        ->header('Content-Disposition', 'attachment; filename="contacts.csv"');
+            ->header('Content-Type', 'text/csv; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="contacts.csv"');
     }
 
     public function show(Contact $contact)
