@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactApiRequest;
+use App\Http\Requests\IndexContactRequest;
 use App\Http\Resources\V1\ContactResource;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndexContactRequest $request)
     {
         $query = Contact::with(['category', 'tags']);
 

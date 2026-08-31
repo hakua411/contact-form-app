@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use App\Http\Requests\ExportContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
@@ -71,7 +72,7 @@ class ContactController extends Controller
         return view('admin.index', compact('contacts', 'categories', 'tags'));
     }
 
-    public function export(Request $request)
+    public function export(ExportContactRequest $request)
     {
         $query = Contact::with('category');
 
@@ -104,7 +105,7 @@ class ContactController extends Controller
         foreach ($contacts as $contact) {
             fputcsv($csv, [
                 $contact->id,
-                $contact->fist_name.' '.$contact->last_name,
+                $contact->first_name.' '.$contact->last_name,
                 $contact->gender == 1 ? '男性' : ($contact->gender == 2 ? '女性' : 'その他'),
                 $contact->email,
                 $contact->tel,
