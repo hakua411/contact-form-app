@@ -205,7 +205,7 @@ sail artisan key:generate
 ```
 ### 9.データベースのマイグレーションと初期データ投入
 ```bash
-artisan migrasail te --seed
+sail artisan migrate --seed
 ```
 
 ## 使用技術
@@ -215,6 +215,13 @@ artisan migrasail te --seed
 - Webサーバー : Nginx
 - フロントエンド : Vite, Tailwind CSS ^3.4.0
 - 開発ツール : Docker, Laravel Sail, phpMyAdmin
+
+## APIエンドポイント一覧
+- GET /api/v1/contacts（お問い合わせ一覧）
+- GET /api/v1/contacts/{contact}（お問い合わせ詳細）
+- POST /api/v1/contacts（お問い合わせ新規作成）
+- PUT /api/v1/contacts/{contact}（お問い合わせ更新）
+- DELETE /api/v1/contacts/{contact}（お問い合わせ削除）
 
 ## 開発環境URL
 http://localhost 
